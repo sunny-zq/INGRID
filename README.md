@@ -1,26 +1,26 @@
-# pathclust
-pathclust: Pathway-guided identification of cancer subtypes 
+# INGRID
+INGRID: Integrative Genomics Robust iDentification of cancer subgroups
 ===
 
-pathclust is a statistical approach to improve prediction of cancer subgroups and identification of key genes and pathways by integrating information from biological pathway databases.
+INGRID is  a statistical approach that integrates information from biological pathway databases with high-throughput genomic data to improve the robustness for identification and interpretation of molecularly-defined subgroups of cancer patients. 
 
 Installation
 ===========
 
-To install the development version of pathclust, it's easiest to use the 'devtools' package.
+To install the development version of INGRID, it's easiest to use the 'devtools' package.
 
 ```
 #install.packages("devtools")
 library(devtools)
-install_github("dongjunchung/pathclust")
+install_github("sunny-zq/INGRID")
 ```
 
 Usage
 ===========
 
-The R package vignette will provide a good start point for the genetic analysis using pathclust package, including the overview of pathclust package and the example command lines:
+The R package vignette will provide a good start point for the genetic analysis using INGRID package, including the overview of INGRID package and the example command lines:
 
 ```
-library(pathclust)
-vignette("pathclust-example")
+library(INGRID)
+vignette("INGRID-example")
 ```
