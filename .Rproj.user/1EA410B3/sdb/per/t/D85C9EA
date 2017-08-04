@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @title Gene Regrouping summary\n#'\n#' @description Summary of gene Regrouping results.\n#'\n#' @aliases show,geneRegroup-method\n#' @param object output of geneRegroup function\n\nsetMethod(\n  f=\"show\",\n  signature=\"RegroupGene\",\n  definition=function( object ) {\n\n    plist<-object@inputdata\n    geneset.before <- names(plist)\n    n.path.before <- length(geneset.before)\n    path.index <- sprintf(\"pathway_%s\",seq(1:n.path.before))\n\n    path.before<-as.data.frame(names(object@inputdata))\n    rownames(path.before)<-path.index\n    colnames(path.before)<-\"Pathway Name\"\n\n    n_newset<- sum(ifelse( names(object@gset)%in%names(plist), 0, 1 ))\n    idx <- which(ifelse( names(object@gset)%in%names(plist), 0, 1 )==1)\n    table<- matrix(rep(0,n_newset*n.path.before),ncol=n.path.before)\n    for (j in 1:n_newset){\n      names<- unlist(object@gset[idx[j]])\n      pmat<-sapply(1:n.path.before,function(i){ifelse( names%in%plist[[i]], 1, 0 )})\n      table[j,]<-colSums(pmat)\n    }\n\n    colnames(table)<-path.index\n    rownames(table)<-names(object@gset)[idx]\n    cat( \"Summary: Gene-Regrouping results (class: RegroupGene)\\n\" )\n    cat( \"--------------------------------------------------\\n\" )\n    cat( \"Gene sets before gene regrouping\\n\" )\n    str(object@inputdata)\n    cat( \"--------------------------------------------------\\n\" )\n    cat( \"Gene sets after gene regrouping\\n\" )\n    str(object@gset)\n    cat( \"--------------------------------------------------\\n\" )\n    cat( \"Pathway names before gene regrouping\\n\" )\n    print(path.before)\n    cat( \"--------------------------------------------------\\n\" )\n    cat( \"Number of genes in new gene set that are from the old pathway\\n\" )\n    print(table)\n\n  }\n)\n",
+    "created" : 1501822641391.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "244365247",
+    "id" : "D85C9EA",
+    "lastKnownWriteTime" : 1501833513,
+    "last_content_update" : 1501833513783,
+    "path" : "E:/Dr.Chung/2/INGRID/R/methods_RegroupGene.R",
+    "project_path" : "R/methods_RegroupGene.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

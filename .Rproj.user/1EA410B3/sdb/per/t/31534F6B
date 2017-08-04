@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @title prefilter function\n#'\n#' @description a supervised prefiltering by fitting a cox regression model on the expression measures of each mRNA.  Only genes with p values smaller than a pre-selected cut-off point were included in further analysis. Here we chose p=0.5 as default cut-off point.\n#'\n#' @export\n#' @import foreach survival methods\n#' @param data A N by P dataframe, where N is number of observations, P is number of genes\n#' @param time time passed to selectGene's time argument.\n#' @param status status selectGene's status argument.\n#' @param p.cut p.cut is the pvalue cutoff point for prefiltering\n#' @param plist output gene list from gene regrouping step\n#'\n#'\n#' @examples\n#' data(TCGA)\n#' data(TCGA)\n#' geneRegroup.result=geneRegroup( plist=TCGA$pathList )\n#' prefilter.results=prefilter( data=TCGA$geneexpr, time=TCGA$t, status=TCGA$d,\n#'                              plist=geneRegroup.result@gset )\n\nprefilter <- function( data, time, status, p.cut=0.5, plist=plist ){\n  pvals <- foreach(i=1:ncol(data), .combine='c') %do% {\n    summary(coxph( Surv(time, status)~data[,i] ))$coef[5]\n  }\n\n  xlist<- lapply( plist,function(x){\n    idx<- which( (names(data)%in%x)==T & (pvals<=p.cut)==T )\n    data[,idx]\n  } )\n\n  methods::new( \"Prefiltered\",\n    xlist = xlist,\n    inputdata = list( data = data, time = time, status = status, pathway = names(xlist) )\n  )\n}\n",
+    "created" : 1501823014328.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "809967936",
+    "id" : "31534F6B",
+    "lastKnownWriteTime" : 1501833644,
+    "last_content_update" : 1501833644905,
+    "path" : "E:/Dr.Chung/2/INGRID/R/prefilter.R",
+    "project_path" : "R/prefilter.R",
+    "properties" : {
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

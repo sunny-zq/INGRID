@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @title Prefiltering summary\n#'\n#' @description Summary of prefiltering results.\n#'\n#' @aliases show,Prefiltered-method\n#'\n#' @param object output of prefilter function\n\nsetMethod(\n  f=\"show\",\n  signature=\"Prefiltered\",\n  definition=function( object ) {\n\n    gene.before <- colnames(object@inputdata$data)\n    gene.after <- unique(unlist(sapply( object@xlist, colnames )))\n\n    cat( \"Summary: Pre-filtering results (class: Prefiltered)\\n\" )\n    cat( \"--------------------------------------------------\\n\" )\n    cat( \"Number of genes before prefiltering: \", length(gene.before), \"\\n\", sep=\"\" )\n    cat( \"Number of genes after prefiltering: \", length(gene.after), \"\\n\", sep=\"\" )\n    cat( \"--------------------------------------------------\\n\" )\n  }\n)\n",
+    "created" : 1501822614646.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3716182264",
+    "id" : "9D24E16C",
+    "lastKnownWriteTime" : 1496292699,
+    "last_content_update" : 1496292699,
+    "path" : "E:/Dr.Chung/2/INGRID/R/methods_Prefiltered.R",
+    "project_path" : "R/methods_Prefiltered.R",
+    "properties" : {
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

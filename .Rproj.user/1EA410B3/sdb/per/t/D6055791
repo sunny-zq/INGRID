@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @title geneRegroup function\n#'\n#' @description  redefining the gene set membership of common genes. First, the gene remains to be as a member if it is a core member of the pathway. Second, if the gene is not a core member of any among the pathways (i.e., it maps to more than one pathways), then this gene is re-assigned to one of the gene sets based on the k-medoids algorithm minimizing the binary distance between genes within cluster distance.\n#'\n#' @export\n#' @import foreach cluster methods\n#' @param plist user provided gene lists organized in pathways\n#'\n#'\n#' @examples\n#' data(TCGA)\n#' geneRegroup.result=geneRegroup(plist=TCGA$pathList )\n#' prefilter.results=prefilter( data=TCGA$geneexpr, time=TCGA$t, status=TCGA$d,\n#'                              plist=geneRegroup.result@gset )\n\n\n\ngeneRegroup<- function(plist=TCGA$pathList){\n\n  # names is the unique genes in the plist pathways\n  names<-unique(as.vector(unlist(plist)))\n\n  pmat<-foreach(i=1:length(names(plist)), .combine='cbind')%do%{\n    ifelse( names%in%plist[[i]], 1, 0 )\n  }\n  #dim(pmat)\n  rownames(pmat)=names\n\n  smat<-pmat[rowSums(pmat)>1,]\n  umat<-pmat[rowSums(pmat)==1,]\n  colnames(pmat)=colnames(smat)=colnames(umat)=names(plist)\n\n  paths<-apply(umat,1,function(x){which(x==1)})\n  mat<-cbind(lapply(plist,length),table(paths))\n  colnames(mat)<-c(\"total genes\",\"unique genes\")\n\n  d=as.dist(dist(smat, \"binary\"))\n  si=rep(0,10)\n  for(k in 2:10){\n    pam_k<-pam(d, k,diss=TRUE)\n    si[k]<-summary(silhouette(pam_k))$avg.width\n  }\n\n  pam.fit<-pam(d, 2, diss=TRUE)\n  plot(pam.fit)\n  gset1<-gset2<-list()\n  for(i in 1:length(pam.fit$medoids)){\n    idx<-as.vector(pam.fit$clustering)\n    gset1[[i]]<-names(pam.fit$clustering)[idx==i]\n  }\n  names(gset1)<-pam.fit$medoids\n\n  for(i in 1:length(names(plist))){\n    idx<-as.vector(paths)\n    gset2[[i]]<-names(paths)[idx==i]\n  }\n  names(gset2)<-names(plist)\n\n  gset<-c(gset1,gset2)\n\n  methods::new( \"RegroupGene\",\n                gset = gset,\n                inputdata = plist )\n}\n",
+    "created" : 1501822062113.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2188754159",
+    "id" : "D6055791",
+    "lastKnownWriteTime" : 1501834529,
+    "last_content_update" : 1501834529819,
+    "path" : "E:/Dr.Chung/2/INGRID/R/geneRegroup.R",
+    "project_path" : "R/geneRegroup.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' An S4 class to represent regrouped gene set.\n#'\n#' @slot gset list of regrouped gene set\n#' @slot inputdata input data for geneRegroup function\n\nsetClass( Class=\"RegroupGene\",\n          representation=representation(\n            gset=\"list\",\n            inputdata=\"list\"\n          )\n)\n\n\n#' An S4 class to represent pre-filtered data.\n#'\n#' @slot xlist list of genes in each pathway\n#' @slot inputdata input data for prefilter function\n\nsetClass( Class=\"Prefiltered\",\n    representation=representation(\n        xlist=\"list\",\n        inputdata=\"list\"\n    )\n)\n\n#' An S4 class to represent gene-level analysis results\n#'\n#' @slot score list of SPLS latent components for each pathway\n#' @slot geneSelected list of selected genes in each pathway\n#' @slot fit list of SPLS fits\n#' @slot dataPrefiltered list of prefiltered data for each pathway\n#' @slot inputdata input data for prefilter function\n#'\nsetClass( Class=\"FitGene\",\n    representation=representation(\n        score=\"list\",\n        geneSelected=\"list\",\n        fit=\"list\",\n        dataPrefiltered=\"list\",\n        inputdata=\"list\"\n    )\n)\n\n#' An S4 class for pathway-level analysis results\n#'\n#' @slot PathAll all pathways\n#' @slot PathSelected pathways selected by LASSO\n#' @slot coef LASSO coefficient estimates for pathway latent components\n#' @slot fitGene gene-level analysis results\n\nsetClass( Class=\"FitPath\",\n    representation=representation(\n        pathAll=\"character\",\n        pathSelected=\"character\",\n        coef=\"data.frame\",\n        fitGene=\"FitGene\"\n    )\n)\n",
+    "created" : 1501826073869.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1988243209",
+    "id" : "BD34F893",
+    "lastKnownWriteTime" : 1501826354,
+    "last_content_update" : 1501826354731,
+    "path" : "E:/Dr.Chung/2/INGRID/R/AllClasses.R",
+    "project_path" : "R/AllClasses.R",
+    "properties" : {
+    },
+    "relative_order" : 9,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

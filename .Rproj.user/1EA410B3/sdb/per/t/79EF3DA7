@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @title Summary of selectGene results\n#'\n#' @description Summary of selectGene results.\n#'\n#' @aliases show,FitGene-method\n#'\n#' @param object output of selectGene function\n\nsetMethod(\n  f=\"show\",\n  signature=\"FitGene\",\n  definition=function( object ) {\n\n    gene.before <- unique(unlist(sapply( object@dataPrefiltered, colnames )))\n    gene.after <- unique(unlist(object@geneSelected))\n\n    cat( \"Summary: Gene-level analysis results (class: FitGene)\\n\" )\n    cat( \"--------------------------------------------------\\n\" )\n    cat( \"Number of prefiltered genes: \", length(gene.before), \"\\n\", sep=\"\" )\n    cat( \"Number of selected genes: \", length(gene.after), \"\\n\", sep=\"\" )\n    cat( \"--------------------------------------------------\\n\" )\n  }\n)\n\n#' @title SPLS coefficient estimates for genes\n#'\n#' @description SPLS coefficient estimates for genes.\n#'\n#' @aliases coef,FitGene-method\n#'\n#' @param object output of selectGene function\n\nsetMethod(\n  f=\"coef\",\n  signature=\"FitGene\",\n  definition=function( object ) {\n    return(object@fit$coef)\n  }\n)\n",
+    "created" : 1501822899509.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3040007160",
+    "id" : "79EF3DA7",
+    "lastKnownWriteTime" : 1496292699,
+    "last_content_update" : 1496292699,
+    "path" : "E:/Dr.Chung/2/INGRID/R/methods_FitGene.R",
+    "project_path" : "R/methods_FitGene.R",
+    "properties" : {
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
