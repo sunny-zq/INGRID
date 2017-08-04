@@ -54,7 +54,7 @@ This vignette provides basic information about the
 
 (3) In \texttt{INGRID}, we consider the ``cooperation'' or ``interaction'' between pathways, instead assuming that each pathway operates independently during the cancer progression, which may be unrealistic;
 
-(4) \texttt{INGRID} allows simultaneous inference in multiple biological layers (pathway clusters, pathways, and genes) within a statistically rigorous and unified framework without any additional laborious downstream analysis.
+(4) \texttt{INGRID} allows simultaneous inference in multiple biological layers within a statistically rigorous and unified framework without any additional laborious downstream analysis.
 
 The package can be loaded with the command:
 
@@ -116,8 +116,7 @@ $KEGG_CITRATE_CYCLE_TCA_CYCLE
 \end{Schunk}
 
 \section{Gene Regrouping}
-Gene Grouping step is to redefine the gene set membership of common genes. First, the gene remains to be as a member if it is a core member of the pathway.  A gene is defined as a “core
-member” of a pathway if it belongs to only that pathway.  Second, if the gene is not a core member of any among the pathways (i.e., it maps to more than one pathways), then this gene is re-assigned to one of the gene sets based on the k-medoids algorithm minimizing the binary distance between genes within cluster distance.
+Gene Regrouping step is to redefine the gene set membership of genes. First, the gene remains to be as a member if it is a core member of the gene set.  A gene is defined as a “core member” of a gene set if it belongs to only that gene set.  Second, if the gene maps to more than one gene sets, then this gene is re-assigned to one of the gene sets based on the k-medoids algorithm minimizing the binary distance between genes within cluster distance.
 
 \begin{Schunk}
 \begin{Sinput}
@@ -125,16 +124,16 @@ R> geneRegroup.results <- geneRegroup(TCGA$pathList)
 R> geneRegroup.results
 \end{Sinput}
 \begin{Soutput}
-Summary: Gene-Regrouping results (class: RegroupGene)
+Summary: Gene regrouping results (class: RegroupGene)
 --------------------------------------------------
-Gene sets before gene regrouping
+Gene sets before the gene regrouping
 List of 4
  $ KEGG_CITRATE_CYCLE_TCA_CYCLE   : chr [1:32] "IDH3B" "DLST" "PCK2" "CS" ...
  $ KEGG_MAPK_SIGNALING_PATHWAY    : chr [1:267] "JUN" "MEF2C" "ELK4" "ELK1" ...
  $ KEGG_TGF_BETA_SIGNALING_PATHWAY: chr [1:86] "TFDP1" "NOG" "TNF" "GDF7" ...
  $ KEGG_THYROID_CANCER            : chr [1:29] "PAX8" "HRAS" "CCDC6" "TFG" ...
 --------------------------------------------------
-Gene sets after gene regrouping
+Gene sets after the gene regrouping
 List of 6
  $ NTRK1                          : chr [1:8] "NRAS" "KRAS" "MAP2K2" "MAP2K1" ...
  $ TGFB2                          : chr [1:9] "MYC" "TGFB2" "TGFB1" "TGFBR2" ...
@@ -143,22 +142,21 @@ List of 6
  $ KEGG_TGF_BETA_SIGNALING_PATHWAY: chr [1:77] "TFDP1" "NOG" "GDF7" "INHBB" ...
  $ KEGG_THYROID_CANCER            : chr [1:18] "PAX8" "CCDC6" "TFG" "NCOA4" ...
 --------------------------------------------------
-Pathway names before gene regrouping
-                             Pathway Name
-pathway_1    KEGG_CITRATE_CYCLE_TCA_CYCLE
-pathway_2     KEGG_MAPK_SIGNALING_PATHWAY
-pathway_3 KEGG_TGF_BETA_SIGNALING_PATHWAY
-pathway_4             KEGG_THYROID_CANCER
+Gene set names before the gene regrouping
+                             gene_set_name
+gene_set_1    KEGG_CITRATE_CYCLE_TCA_CYCLE
+gene_set_2     KEGG_MAPK_SIGNALING_PATHWAY
+gene_set_3 KEGG_TGF_BETA_SIGNALING_PATHWAY
+gene_set_4             KEGG_THYROID_CANCER
 --------------------------------------------------
-Number of genes in new gene set that are from the old pathway
-      pathway_1 pathway_2 pathway_3 pathway_4
-NTRK1         0         8         0         8
-TGFB2         0         9         9         3
+Number of genes in each of the new gene set vs. each of the original gene sets
+      gene_set_1 gene_set_2 gene_set_3 gene_set_4
+NTRK1          0          8          0          8
+TGFB2          0          9          9          3
 \end{Soutput}
 \end{Schunk}
-The table above shows the number of genes of a new gene set that is from the original pathways. For instance, the new gene set "NTRK1" has 0 gene from "pathway_1", which is "KEGG_CITRATE_CYCLE_TCA_CYCLE", 8 genes from "pathway_2", which is "KEGG_MAPK_SIGNALING_PATHWAY", and so on.
+The table above shows the number of genes in a new gene set that is from each of the original gene sets. For instance, the new gene set "NTRK1" has 0 gene from \texttt{gene\_set\_1}, which is \texttt{KEGG\_CITRATE\_CYCLE\_TCA\_CYCLE}, 8 genes from \texttt{gene\_set\_2}, which is \texttt{KEGG\_MAPK\_SIGNALING\_PATHWAY}, and so on.
 
-\section{Pre-filtering}
 
 To refine the candidate set of genes, we first conduct a supervised pre-filtering by fitting a Cox regression model of the mRNA expression measure of each gene on the patient survival. Only the gene expressions associated with patient survival at p-values smaller than a pre-specified cut-off are included in the subsequent analysis. By default, p = 0.5 is used as cut-off point.
 
@@ -208,9 +206,9 @@ The list of the SPLS regression coefficients of cancer-related genes can be gene
 R> head(coef(gene.results)[[1]])
 \end{Sinput}
 \begin{Soutput}
-  colnames.xx..spls.mod.A.    betahat
-1                     NRAS -0.4465544
-2                     TP53 -0.4754562
+  gene_set coefficient_estimate
+1     NRAS           -0.4465544
+2     TP53           -0.4754562
 \end{Soutput}
 \end{Schunk}
 
@@ -239,10 +237,10 @@ Number of all pathways: 6
 Number of selected pathways: 4
 
 List of selected pathways:
-	NTRK1:
-	KEGG_CITRATE_CYCLE_TCA_CYCLE:
-	KEGG_MAPK_SIGNALING_PATHWAY:
-	KEGG_TGF_BETA_SIGNALING_PATHWAY:
+	NTRK1
+	KEGG_CITRATE_CYCLE_TCA_CYCLE
+	KEGG_MAPK_SIGNALING_PATHWAY
+	KEGG_TGF_BETA_SIGNALING_PATHWAY
 --------------------------------------------------
 \end{Soutput}
 \end{Schunk}
@@ -254,13 +252,13 @@ LASSO regression coefficients of cancer-related pathways can be generated using 
 R> head(coef(path.results))
 \end{Sinput}
 \begin{Soutput}
-              rep.pathways..cols. path.beta
-1                           NTRK1 0.2051799
-2                           NTRK1 0.0000000
-3                           TGFB2 0.0000000
-4    KEGG_CITRATE_CYCLE_TCA_CYCLE 0.2169771
-5     KEGG_MAPK_SIGNALING_PATHWAY 0.1828202
-6 KEGG_TGF_BETA_SIGNALING_PATHWAY 0.0918629
+                         gene_set coefficient_estimate
+1                           NTRK1            0.2051799
+2                           NTRK1            0.0000000
+3                           TGFB2            0.0000000
+4    KEGG_CITRATE_CYCLE_TCA_CYCLE            0.2169771
+5     KEGG_MAPK_SIGNALING_PATHWAY            0.1828202
+6 KEGG_TGF_BETA_SIGNALING_PATHWAY            0.0918629
 \end{Soutput}
 \end{Schunk}
 
@@ -273,7 +271,7 @@ R> plot(path.results, type="HR")
 \end{Schunk}
 
 Figure 1 shows the hazard ratio (HR) associated with each latent component in the pathways selected by the \texttt{INGRID}.
-Based on the TCGA data, pathways with the largest effect on survival (HR $\geq 1.15$) are \texttt{KEGG\_CITRATE\_CYCLE\_TCA\_CYCLE} and \texttt{KEGG\_TGF\_BETA\_SIGNALING\_PATHWAY} pathways.
+Based on the TCGA data, pathways with the largest effect on survival are \texttt{NTPK1} and \texttt{KEGG\_CITRATE\_CYCLE\_TCA\_CYCLE} and  gene sets.
 
 \begin{figure}[tbh]
 \begin{center}
@@ -372,7 +370,6 @@ Figure 3 shows the ROC curves for survival, and for the TCGA data, the area unde
 \bibitem{TCGA} Cancer Genome Atlas Research Network (2011), ``Integrated genomic analyses of ovarian carcinoma''. Nature, 474(7353), 609-615.
 \bibitem{SPLS} Bastien, P., Bertrand, F., Meyer, N., Maumy-Bertrand, M. (2014), `` Deviance residuals-based sparse PLS and sparse kernel PLS regression for censored data''. Bioinformatics, 31(3), 397-404.
 \bibitem{LASSO} Tibshirani, R. (1997), ``The lasso method for variable selection in the cox model''. Statistics in Medicine, 16(4), 385-395.
-
 \end{thebibliography}
 
 \end{document}

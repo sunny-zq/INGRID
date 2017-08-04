@@ -13,11 +13,11 @@ setMethod(
     plist<-object@inputdata
     geneset.before <- names(plist)
     n.path.before <- length(geneset.before)
-    path.index <- sprintf("pathway_%s",seq(1:n.path.before))
+    path.index <- sprintf("gene_set_%s",seq(1:n.path.before))
 
     path.before<-as.data.frame(names(object@inputdata))
     rownames(path.before)<-path.index
-    colnames(path.before)<-"Pathway Name"
+    colnames(path.before)<-"gene_set_name"
 
     n_newset<- sum(ifelse( names(object@gset)%in%names(plist), 0, 1 ))
     idx <- which(ifelse( names(object@gset)%in%names(plist), 0, 1 )==1)
@@ -30,18 +30,18 @@ setMethod(
 
     colnames(table)<-path.index
     rownames(table)<-names(object@gset)[idx]
-    cat( "Summary: Gene-Regrouping results (class: RegroupGene)\n" )
+    cat( "Summary: Gene regrouping results (class: RegroupGene)\n" )
     cat( "--------------------------------------------------\n" )
-    cat( "Gene sets before gene regrouping\n" )
+    cat( "Gene sets before the gene regrouping\n" )
     str(object@inputdata)
     cat( "--------------------------------------------------\n" )
-    cat( "Gene sets after gene regrouping\n" )
+    cat( "Gene sets after the gene regrouping\n" )
     str(object@gset)
     cat( "--------------------------------------------------\n" )
-    cat( "Pathway names before gene regrouping\n" )
+    cat( "Gene set names before the gene regrouping\n" )
     print(path.before)
     cat( "--------------------------------------------------\n" )
-    cat( "Number of genes in new gene set that are from the old pathway\n" )
+    cat( "Number of genes in each of the new gene set vs. each of the original gene sets\n" )
     print(table)
 
   }

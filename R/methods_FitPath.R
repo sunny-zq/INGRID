@@ -25,7 +25,7 @@ setMethod(
     cat( "\n" )
     cat( "List of selected pathways:\n" )
 		for ( i in 1:length(path.after) ) {
-			cat( "\t",path.after[i],":\n", sep="" )
+			cat( "\t",path.after[i],"\n", sep="" )
 		}
     cat( "--------------------------------------------------\n" )
   }
@@ -43,6 +43,8 @@ setMethod(
   f="coef",
   signature="FitPath",
   definition=function( object ) {
+
+    colnames(object@coef)<-c("gene_set","coefficient_estimate")
     return(object@coef)
   }
 )

@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' @title pathway selection using LASSO\n#'\n#' @description  LASSO step for pathway selection. To identify patient subgroups based on pathway level risk profile, we fit a LASSO-Penalized Cox regression on scores derived from all the pathways.\n#'\n#' @param object results of selectGene step\n#' @param seed random seed that was set,  default = 123.\n#'\n#' @import stats glmnet foreach methods\n#' @export\n#' @docType methods\n#' @rdname selectPath-methods\n#' @aliases selectPath\n#' @aliases selectPath,FitGene-method\n#'\n#' @examples\n#' data(TCGA)\n#' geneRegroup.result=geneRegroup(plist=TCGA$pathList )\n#' prefilter.results=prefilter( data=TCGA$geneexpr, time=TCGA$t, status=TCGA$d,\n#'                              plist=geneRegroup.result@gset )\n#' gene.results=selectGene( object=prefilter.results, fold=5, K=5, etas=c(0.1,0.9),seed=123)\n#' path.results=selectPath( object=gene.results, seed=123)\n\nsetMethod(\n  f=\"selectPath\",\n  signature=\"FitGene\",\n  definition=function( object, seed=123){\n\n    time<-object@inputdata$time\n    status<-object@inputdata$status\n    pathways<-object@inputdata$pathway\n    score<-object@score\n\n    xx<-foreach(j=1:length(score), .combine='cbind')%do%{score[[j]]}\n\n    set.seed(seed)\n    cvlas<-cv.glmnet( x=as.matrix(xx),y=Surv(time, status),\n                     family=\"cox\",type.measure=\"deviance\",alpha=1)\n\n    cols<-sapply(score,ncol)\n    ##this lambda should also be optional\n    path.beta<-as.vector(coef(cvlas,s=cvlas$lambda.1se))\n    path.beta<-data.frame( rep(pathways,cols), path.beta,\n      stringsAsFactors=FALSE )\n\n    methods::new( \"FitPath\",\n      pathAll=pathways,\n      pathSelected=path.beta[which(path.beta[,2]>0),1],\n      coef=path.beta,\n      fitGene=object\n    )\n  }\n)\n",
+    "created" : 1501833569135.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "177420393",
+    "id" : "C7E49A6C",
+    "lastKnownWriteTime" : 1501833585,
+    "last_content_update" : 1501833585062,
+    "path" : "E:/Dr.Chung/2/INGRID/R/selectPath.R",
+    "project_path" : "R/selectPath.R",
+    "properties" : {
+    },
+    "relative_order" : 10,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

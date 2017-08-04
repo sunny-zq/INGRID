@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.7.28)  4 AUG 2017 04:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.7.28)  4 AUG 2017 18:18
 entering extended mode
 **E:/Dr.Chung/2/INGRID/vignettes/INGRID-example.tex
 (E:/Dr.Chung/2/INGRID/vignettes/INGRID-example.tex
@@ -288,8 +288,7 @@ LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
 LaTeX Font Info:    Try loading font information for T1+aer on input line 105.
 ("C:\Users\sunze\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ae\t1aer.fd"
 File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
-))))
-No file INGRID-example.aux.
+)))) (INGRID-example.aux)
 \openout1 = `INGRID-example.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
@@ -328,6 +327,7 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 38.
 LaTeX Info: Redefining \pageref on input line 38.
 LaTeX Info: Redefining \nameref on input line 38.
+(INGRID-example.out) (INGRID-example.out)
 \@outlinefile=\write4
 \openout4 = `INGRID-example.out'.
 
@@ -370,125 +370,75 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line 45.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 45.
-
-LaTeX Warning: Citation `INGRID' on page 1 undefined on input line 49.
-
 [1
 
 {C:/Users/sunze/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
-E:/Dr.Chung/2/INGRID/vignettes/INGRID-example.tex:159: Missing $ inserted
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 159.
-
-E:/Dr.Chung/2/INGRID/vignettes/INGRID-example.tex:160: Missing $ inserted
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-Overfull \hbox (506.09613pt too wide) in paragraph at lines 159--160
-\T1/aer/m/n/10.95 in-stance, the new gene set "NTRK1" has 0 gene from "pathway$
-[]\OT1/cmr/m/n/10.95 "\OML/cmm/m/it/10.95 ; whichis\OT1/cmr/m/n/10.95 "\OML/cmm
-/m/it/10.95 KEGG[]ITRATE[]YCLE[]CA[]YCLE\OT1/cmr/m/n/10.95 "\OML/cmm/m/it/10.95
- ; \OT1/cmr/m/n/10.95 8\OML/cmm/m/it/10.95 genesfrom\OT1/cmr/m/n/10.95 "\OML/cm
-m/m/it/10.95 pathway[]\OT1/cmr/m/n/10.95 "\OML/cmm/m/it/10.95 ; whichis\OT1/cmr
-/m/n/10.95 "\OML/cmm/m/it/10.95 KEGG[]APK[]IGNALING[]ATHWAY\OT1/cmr/m/n/10.95 "
-\OML/cmm/m/it/10.95 ; andsoon:$ 
+Overfull \hbox (17.84756pt too wide) in paragraph at lines 158--159
+\T1/aett/m/n/10.95 KEGG_CITRATE_CYCLE_TCA_CYCLE\T1/aer/m/n/10.95 , 8 genes from
+ \T1/aett/m/n/10.95 gene_set_2\T1/aer/m/n/10.95 , which is \T1/aett/m/n/10.95 K
+EGG_MAPK_SIGNALING_PATHWAY\T1/aer/m/n/10.95 ,
  []
 
 
-LaTeX Warning: Citation `SPLS' on page 3 undefined on input line 182.
-
-
-Overfull \hbox (21.70453pt too wide) in paragraph at lines 184--185
+Overfull \hbox (21.70453pt too wide) in paragraph at lines 182--183
 []\T1/aer/m/n/10.95 Using the ob-ject `\T1/aett/m/n/10.95 prefilter.results\T1/
 aer/m/n/10.95 ', gene-level anal-y-sis re-sult can be gen-er-ated with `\T1/aet
 t/m/n/10.95 selectGene\T1/aer/m/n/10.95 '
  []
 
-
 [3]
-
-LaTeX Warning: Citation `LASSO' on page 4 undefined on input line 222.
-
-
-[4]
-<INGRID-example-plot1.pdf, id=39, 433.62pt x 433.62pt>
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 215.
+[4] <INGRID-example-plot1.pdf, id=68, 433.62pt x 433.62pt>
 File: INGRID-example-plot1.pdf Graphic file (type pdf)
-
 <use INGRID-example-plot1.pdf>
-Package pdftex.def Info: INGRID-example-plot1.pdf used on input line 280.
+Package pdftex.def Info: INGRID-example-plot1.pdf used on input line 278.
 (pdftex.def)             Requested size: 375.80542pt x 375.8238pt.
-
-[5]
-[6 <./INGRID-example-plot1.pdf>]
-<INGRID-example-plot.pdf, id=55, 433.62pt x 433.62pt>
+[5] [6 <./INGRID-example-plot1.pdf>] <INGRID-example-plot.pdf, id=83, 433.62pt 
+x 433.62pt>
 File: INGRID-example-plot.pdf Graphic file (type pdf)
-
 <use INGRID-example-plot.pdf>
-Package pdftex.def Info: INGRID-example-plot.pdf used on input line 345.
+Package pdftex.def Info: INGRID-example-plot.pdf used on input line 343.
 (pdftex.def)             Requested size: 375.80542pt x 375.8238pt.
-
-[7 <./INGRID-example-plot.pdf>]
-<INGRID-example-plot3.pdf, id=68, 433.62pt x 433.62pt>
+[7 <./INGRID-example-plot.pdf>] <INGRID-example-plot3.pdf, id=95, 433.62pt x 43
+3.62pt>
 File: INGRID-example-plot3.pdf Graphic file (type pdf)
-
 <use INGRID-example-plot3.pdf>
-Package pdftex.def Info: INGRID-example-plot3.pdf used on input line 363.
+Package pdftex.def Info: INGRID-example-plot3.pdf used on input line 361.
 (pdftex.def)             Requested size: 375.80542pt x 375.8238pt.
-
 [8 <./INGRID-example-plot3.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 378.
-
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 375.
 [9]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 378.
-
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 375.
 (INGRID-example.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 378.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 378.
-
-Package rerunfilecheck Warning: File `INGRID-example.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `INGRID-example.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  46293C883F967C4488255775B29F86EB;439.
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 378.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 375.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 375.
+Package rerunfilecheck Info: File `INGRID-example.out' has not changed.
+(rerunfilecheck)             Checksum: 5209A8B4D616BBBA4EE87BEE0F11C58D;391.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 375.
  ) 
 Here is how much of TeX's memory you used:
- 6278 strings out of 493323
- 94030 string characters out of 3130015
- 172752 words of memory out of 3000000
- 9711 multiletter control sequences out of 15000+200000
- 25343 words of font info for 60 fonts, out of 3000000 for 9000
+ 6286 strings out of 493323
+ 94168 string characters out of 3130015
+ 171953 words of memory out of 3000000
+ 9719 multiletter control sequences out of 15000+200000
+ 22557 words of font info for 55 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 35i,6n,28p,1090b,470s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 35i,6n,28p,1090b,472s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/sunze/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
-/cm/cmbx10.pfb><C:/Users/sunze/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
-blic/amsfonts/cm/cmbx12.pfb><C:/Users/sunze/AppData/Local/Programs/MiKTeX 2.9/f
-onts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/sunze/AppData/Local/Programs
-/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/sunze/AppData/Lo
-cal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/sunz
-e/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C
-:/Users/sunze/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
-cmr17.pfb><C:/Users/sunze/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/
-amsfonts/cm/cmr8.pfb><C:/Users/sunze/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
-pe1/public/amsfonts/cm/cmsltt10.pfb><C:/Users/sunze/AppData/Local/Programs/MiKT
-eX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/sunze/AppData/Local/
-Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/sunze/A
-ppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on INGRID-example.pdf (9 pages, 193200 bytes).
+/cm/cmbx12.pfb><C:/Users/sunze/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/cm/cmmi10.pfb><C:/Users/sunze/AppData/Local/Programs/MiKTeX 2.9/f
+onts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/sunze/AppData/Local/Programs/
+MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/sunze/AppData/Loc
+al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/sunze
+/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsltt10.pfb>
+<C:/Users/sunze/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/c
+m/cmsy10.pfb><C:/Users/sunze/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmtt10.pfb><C:/Users/sunze/AppData/Local/Programs/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on INGRID-example.pdf (9 pages, 161961 bytes).
 PDF statistics:
- 134 PDF objects out of 1000 (max. 8388607)
- 27 named destinations out of 1000 (max. 500000)
- 20 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 149 PDF objects out of 1000 (max. 8388607)
+ 26 named destinations out of 1000 (max. 500000)
+ 84 words of extra memory for PDF output out of 10000 (max. 10000000)
 

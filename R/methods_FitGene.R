@@ -34,6 +34,7 @@ setMethod(
   f="coef",
   signature="FitGene",
   definition=function( object ) {
-    return(object@fit$coef)
+    return(lapply(object@fit$coef, setNames, c("gene_set","coefficient_estimate")))
   }
 )
+

@@ -53,7 +53,7 @@ This vignette provides basic information about the
 
 (3) In \texttt{INGRID}, we consider the ``cooperation'' or ``interaction'' between pathways, instead assuming that each pathway operates independently during the cancer progression, which may be unrealistic;
 
-(4) \texttt{INGRID} allows simultaneous inference in multiple biological layers (pathway clusters, pathways, and genes) within a statistically rigorous and unified framework without any additional laborious downstream analysis.
+(4) \texttt{INGRID} allows simultaneous inference in multiple biological layers within a statistically rigorous and unified framework without any additional laborious downstream analysis.
 
 The package can be loaded with the command:
 
@@ -85,16 +85,14 @@ TCGA$pathList[1]
 @
 
 \section{Gene Regrouping}
-Gene Grouping step is to redefine the gene set membership of common genes. First, the gene remains to be as a member if it is a core member of the pathway.  A gene is defined as a “core
-member” of a pathway if it belongs to only that pathway.  Second, if the gene is not a core member of any among the pathways (i.e., it maps to more than one pathways), then this gene is re-assigned to one of the gene sets based on the k-medoids algorithm minimizing the binary distance between genes within cluster distance.
+Gene Regrouping step is to redefine the gene set membership of genes. First, the gene remains to be as a member if it is a core member of the gene set.  A gene is defined as a “core member” of a gene set if it belongs to only that gene set.  Second, if the gene maps to more than one gene sets, then this gene is re-assigned to one of the gene sets based on the k-medoids algorithm minimizing the binary distance between genes within cluster distance.
 
 <<prefilter-fn>>=
 geneRegroup.results <- geneRegroup(TCGA$pathList)
 geneRegroup.results
 @
-The table above shows the number of genes of a new gene set that is from the original pathways. For instance, the new gene set "NTRK1" has 0 gene from "pathway_1", which is "KEGG_CITRATE_CYCLE_TCA_CYCLE", 8 genes from "pathway_2", which is "KEGG_MAPK_SIGNALING_PATHWAY", and so on.
+The table above shows the number of genes in a new gene set that is from each of the original gene sets. For instance, the new gene set "NTRK1" has 0 gene from \texttt{gene\_set\_1}, which is \texttt{KEGG\_CITRATE\_CYCLE\_TCA\_CYCLE}, 8 genes from \texttt{gene\_set\_2}, which is \texttt{KEGG\_MAPK\_SIGNALING\_PATHWAY}, and so on.
 
-\section{Pre-filtering}
 
 To refine the candidate set of genes, we first conduct a supervised pre-filtering by fitting a Cox regression model of the mRNA expression measure of each gene on the patient survival. Only the gene expressions associated with patient survival at p-values smaller than a pre-specified cut-off are included in the subsequent analysis. By default, p = 0.5 is used as cut-off point.
 
@@ -154,7 +152,7 @@ plot(path.results, type="HR")
 @
 
 Figure 1 shows the hazard ratio (HR) associated with each latent component in the pathways selected by the \texttt{INGRID}.
-Based on the TCGA data, pathways with the largest effect on survival (HR $\geq 1.15$) are \texttt{KEGG\_CITRATE\_CYCLE\_TCA\_CYCLE} and \texttt{KEGG\_TGF\_BETA\_SIGNALING\_PATHWAY} pathways.
+Based on the TCGA data, pathways with the largest effect on survival are \texttt{NTPK1} and \texttt{KEGG\_CITRATE\_CYCLE\_TCA\_CYCLE} and  gene sets.
 
 \begin{figure}[tbh]
 \begin{center}
@@ -225,7 +223,6 @@ Figure 3 shows the ROC curves for survival, and for the TCGA data, the area unde
 \bibitem{TCGA} Cancer Genome Atlas Research Network (2011), ``Integrated genomic analyses of ovarian carcinoma''. Nature, 474(7353), 609-615.
 \bibitem{SPLS} Bastien, P., Bertrand, F., Meyer, N., Maumy-Bertrand, M. (2014), `` Deviance residuals-based sparse PLS and sparse kernel PLS regression for censored data''. Bioinformatics, 31(3), 397-404.
 \bibitem{LASSO} Tibshirani, R. (1997), ``The lasso method for variable selection in the cox model''. Statistics in Medicine, 16(4), 385-395.
-
 \end{thebibliography}
 
 \end{document}
