@@ -23,15 +23,26 @@ geneRegroup<- function(plist=TCGA$pathList){
   pmat<-foreach(i=1:length(names(plist)), .combine='cbind')%do%{
     ifelse( names%in%plist[[i]], 1, 0 )
   }
-  #dim(pmat)
-  rownames(pmat)=names
 
+  rownames(pmat)=names
   smat<-pmat[rowSums(pmat)>1,]
   umat<-pmat[rowSums(pmat)==1,]
+
   colnames(pmat)=colnames(smat)=colnames(umat)=names(plist)
 
   paths<-apply(umat,1,function(x){which(x==1)})
-  mat<-cbind(lapply(plist,length),table(paths))
+
+
+  ##### Added          ############################################################
+  ##### the following step solved the issue of there is no unique gene to a pathway
+
+  temp1<- as.data.frame(table(paths))
+  temp2<- foreach(i=1:length(plist),.combine = "c")%do%{
+    ifelse( (c(1:length(plist))%in%temp1$paths)[i], temp1$Freq[sum((c(1:length(plist))%in%temp1$paths)[1:i])], NA )
+  }
+  mat<-cbind(sapply(plist,length),temp2)
+
+  ################################################################################
   colnames(mat)<-c("total genes","unique genes")
 
   d=as.dist(dist(smat, "binary"))
@@ -56,7 +67,8 @@ geneRegroup<- function(plist=TCGA$pathList){
   }
   names(gset2)<-names(plist)
 
-  gset<-c(gset1,gset2)
+  gset<-c(gset1, gset2)
+  gset<-gset[lapply(gset,length)>0]
 
   methods::new( "RegroupGene",
                 gset = gset,

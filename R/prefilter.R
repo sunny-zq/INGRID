@@ -18,18 +18,23 @@
 #' prefilter.results=prefilter( data=TCGA$geneexpr, time=TCGA$t, status=TCGA$d,
 #'                              plist=geneRegroup.result@gset )
 
-prefilter <- function( data, time, status, p.cut=0.5, plist=plist ){
+prefilter <- function( data, time, status, p.cut=0.5, plist ){
   pvals <- foreach(i=1:ncol(data), .combine='c') %do% {
     summary(coxph( Surv(time, status)~data[,i] ))$coef[5]
   }
 
+  # newdat=data[,pvals<=p.cut]
+
   xlist<- lapply( plist,function(x){
     idx<- which( (names(data)%in%x)==T & (pvals<=p.cut)==T )
-    data[,idx]
+    data[,idx,drop=FALSE]
   } )
 
+  nc<-lapply(xlist,ncol)
+  plist=plist[which(nc!=0)]
+  xlist=xlist[which(nc!=0)]
   methods::new( "Prefiltered",
-    xlist = xlist,
-    inputdata = list( data = data, time = time, status = status, pathway = names(xlist) )
+                xlist = xlist,
+                inputdata = list( data = data, time = time, status = status, pathway = names(xlist) )
   )
 }
