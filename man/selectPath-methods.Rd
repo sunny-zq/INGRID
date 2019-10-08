@@ -2,8 +2,8 @@
 % Please edit documentation in R/selectPath.R
 \docType{methods}
 \name{selectPath,FitGene-method}
-\alias{selectPath}
 \alias{selectPath,FitGene-method}
+\alias{selectPath}
 \title{pathway selection using LASSO}
 \usage{
 \S4method{selectPath}{FitGene}(object, seed = 123)
@@ -24,4 +24,3 @@ prefilter.results=prefilter( data=TCGA$geneexpr, time=TCGA$t, status=TCGA$d,
 gene.results=selectGene( object=prefilter.results, fold=5, K=5, etas=c(0.1,0.9),seed=123)
 path.results=selectPath( object=gene.results, seed=123)
 }
-

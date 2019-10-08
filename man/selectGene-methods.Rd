@@ -2,13 +2,13 @@
 % Please edit documentation in R/selectGene.R
 \docType{methods}
 \name{selectGene,Prefiltered-method}
-\alias{selectGene}
 \alias{selectGene,Prefiltered-method}
+\alias{selectGene}
 \title{Gene selection using SPLS model}
 \usage{
-\S4method{selectGene}{Prefiltered}(object, K = 5, etas = seq(0.1, 0.9, 0.1),
-  fold = 5, se1 = TRUE, method = "plik", par = FALSE, foldid = NULL,
-  seed = 123)
+\S4method{selectGene}{Prefiltered}(object, K = 5, etas = seq(0.1, 0.9,
+  0.1), fold = 5, se1 = TRUE, method = "plik", par = FALSE,
+  foldid = NULL, seed = 123)
 }
 \arguments{
 \item{object}{output list of prefilter step}
@@ -39,4 +39,3 @@ prefilter.results=prefilter( data=TCGA$geneexpr, time=TCGA$t, status=TCGA$d,
                              plist=geneRegroup.result@gset )
 gene.results=selectGene( object=prefilter.results, fold=5, K=5, etas=c(0.1,0.9),seed=123)
 }
-
