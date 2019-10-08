@@ -1,5 +1,5 @@
 
-#' @import stats graphics ggplot2 survivalROC
+#' @import stats graphics ggplot2 survivalROC survminer survival
 #' @exportMethod coef predict plot
 
 #' @title Summary of selectPath results
@@ -144,15 +144,34 @@ setMethod(
 
       predicted <- predict(x)
 
-      time<-predicted$time
-      status<-predicted$status
-      reg<-survfit(Surv(time,status)~factor(predicted$riskcat))
-      cuts<-predicted$cuts
-      tab<-table(predicted$riskcat)
-      plot( reg, col=c("red","black","green"),xlim=c(0,60),
-            xlab="Months From Diagnosis to Death",ylab="Survival Fraction (KM)" )
-      legend("bottomleft",lty=c(1,1,1),col=c("red","black","green"),
-             c( paste("High",">",cuts[2],"n=",tab[1]),paste("Medium", "n=",tab[2]),paste("Low","<",cuts[1], "n=",tab[3])))
+      # time<-predicted$time
+      # status<-predicted$status
+      # reg<-survfit(Surv(time,status)~factor(predicted$riskcat))
+      # cuts<-predicted$cuts
+      # tab<-table(predicted$riskcat)
+      # plot( reg, col=c("red","black","green"),xlim=c(0,60),
+      #       xlab="Months From Diagnosis to Death",ylab="Survival Fraction (KM)" )
+      # legend("bottomleft",lty=c(1,1,1),col=c("red","black","green"),
+      #        c( paste("High",">",cuts[2],"n=",tab[1]),paste("Medium", "n=",tab[2]),paste("Low","<",cuts[1], "n=",tab[3])))
+
+      predicted_data<-as.data.frame(predicted)
+      predicted_data$status<-predicted_data$status+1
+      predicted_data$riskcat <- factor(predicted_data$riskcat, levels = c("high","med","low"))
+      fit<- survfit(Surv(time, status) ~ riskcat, data = predicted_data)
+      ggsurvplot(fit,data = predicted_data,
+                 pval = TRUE, conf.int = TRUE,
+                 risk.table = TRUE, # Add risk table
+                 risk.table.col = "strata", # Change risk table color by groups
+                 linetype = "strata", # Change line type by groups
+                 ggtheme = theme_bw(), # Change ggplot2 theme
+                 legend.labs=c("high","med","low")) + theme_survminer(
+                   font.main = c(16, "bold", "black"),
+                   font.submain = c(15, "bold.italic", "black"),
+                   font.caption = c(14, "plain", "black"),
+                   font.x = c(14, "bold.italic", "black"),
+                   font.y = c(14, "bold.italic", "black"),
+                   font.tickslab = c(12, "plain", "black")
+                 )
 
     } else if ( type == "ROC" ) {
 
@@ -163,18 +182,26 @@ setMethod(
       time<-predicted$time
       status<-predicted$status
       roc<-survivalROC::survivalROC(Stime=time,status=status,
-        marker<-predicted$risk.index, predict.time=60, method="KM")
-
-
-      plot(roc$FP, roc$TP, type="l", xlim=c(0,1), ylim=c(0,1), col="red",
-           xlab="1-Specificity", ylab="Sensitivity")
-      text(x=0.8, y=0.1, labels = paste("AUC =", round((roc$AUC),3)))
-      abline(0,1)
+        marker<-predicted$risk.index, predict.time=60,method="KM")
+      data_roc<-as.data.frame(roc)
+      data_roc$order<-length(data_roc$FP):1
+      data_roc$TP[ data_roc$TP > 1 ] <- 1
+      ggplot(data=data_roc[order(data_roc$order),], aes(x=FP, y=TP)) +
+        geom_line(color="red", size=1)+
+        # geom_abline(intercept = 0, slope = 1)+
+        geom_segment(aes(x = 0, y = 0, xend = 1, yend = 1),size=1)+
+        ylab("Sensitivity") +
+        xlab("1-Specificity") +
+        annotate("text",x=0.9, y=0.1, size=7,label = paste("AUC =", round((roc$AUC),3)))+
+        theme_bw()+   theme(text=element_text(size=16,  family="serif"))+   theme(plot.title = element_text(size=18))
+      # plot(roc$FP, roc$TP, type="l", xlim=c(0,1), ylim=c(0,1), col="red",
+      #      xlab="1-Specificity", ylab="Sensitivity")
+      # text(x=0.8, y=0.1, labels = paste("AUC =", round((roc$AUC),3)))
+      # abline(0,1)
 
     } else if ( type == "HR" ) {
 
       # plot hazard ratios of selected pathways
-
       path.results<-x@coef
       betas<-path.results[,2]
       paths<-path.results[,1]
@@ -187,10 +214,12 @@ setMethod(
       for(i in 1:length(paths)){
         j<-which( mat[,1]==paths[i] )
         coefs[[i]]<-mat[j,2]
+        coefs[[i]]<-ifelse(length(coefs[[i]])==0,0,coefs[[i]])
       }
 
       names(coefs)<-lab2
       o<-rev(order(-sapply(coefs,max)))
+
       coefs<-coefs[o]
       lab2<-names(coefs)
 
@@ -207,7 +236,7 @@ setMethod(
       coefs.plot<- exp(unlist(coefs))
       path.plot<-lab2
       data.plot<- as.data.frame(cbind(index.plot,coefs.plot))
-
+      data.plot<- data.plot[which(data.plot$coefs.plot>1),]
       ggplot(data.plot,aes(x=index.plot,xend=index.plot,y=1,yend=coefs.plot))+
         geom_segment()+coord_flip()+
         scale_x_discrete(limits=path.plot)+
