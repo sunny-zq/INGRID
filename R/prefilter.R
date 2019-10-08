@@ -19,6 +19,13 @@
 #'                              plist=geneRegroup.result@gset )
 
 prefilter <- function( data, time, status, p.cut=0.5, plist ){
+  if (length(which(is.na(time)==TRUE))>0  ){
+         stop( "There is missing value in the time variable. Cannot proceed!\n" )
+       } else if  ( length(which(is.na(status)==TRUE))>0){
+             stop( "There is missing value in the status variable. Cannot proceed!\n" )
+           } else if(sum(apply(data,  2,  function(x){length(which(is.na(x)==TRUE)) })) >0 ){
+                stop( "There is missing value in the expression data. Cannot proceed!\n" )
+              } else {
   pvals <- foreach(i=1:ncol(data), .combine='c') %do% {
     summary(coxph( Surv(time, status)~data[,i] ))$coef[5]
   }
@@ -26,7 +33,7 @@ prefilter <- function( data, time, status, p.cut=0.5, plist ){
   # newdat=data[,pvals<=p.cut]
 
   xlist<- lapply( plist,function(x){
-    idx<- which( (names(data)%in%x)==T & (pvals<=p.cut)==T )
+    idx<- which( (colnames(data)%in%x)==T & (pvals<=p.cut)==T )
     data[,idx,drop=FALSE]
   } )
 
@@ -37,4 +44,5 @@ prefilter <- function( data, time, status, p.cut=0.5, plist ){
                 xlist = xlist,
                 inputdata = list( data = data, time = time, status = status, pathway = names(xlist) )
   )
+  }
 }
