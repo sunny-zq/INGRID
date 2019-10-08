@@ -18,3 +18,4 @@ geneRegroup.result=geneRegroup(plist=TCGA$pathList )
 prefilter.results=prefilter( data=TCGA$geneexpr, time=TCGA$t, status=TCGA$d,
                              plist=geneRegroup.result@gset )
 }
+

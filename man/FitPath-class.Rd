@@ -3,9 +3,9 @@
 \docType{class}
 \name{FitPath-class}
 \alias{FitPath-class}
-\alias{predict,FitPath-method}
 \alias{plot,FitPath,missing-method}
 \alias{plot,FitPath-method}
+\alias{predict,FitPath-method}
 \title{An S4 class for pathway-level analysis results}
 \usage{
 \S4method{predict}{FitPath}(object, newx = NULL, cuts = NULL)
@@ -26,6 +26,8 @@
 \item{type}{type of plot. one of Kaplan-Meier curves (\code{type="KM"}), ROC (\code{type="ROC"}), or hazard ratio (\code{type="HR"}).}
 }
 \description{
+An S4 class for pathway-level analysis results
+
 Risk group prediction.
 
 Plot Kaplan-Meier curves (\code{type="KM"}), ROC (\code{type="ROC"}), or hazard ratio (\code{type="HR"}).
