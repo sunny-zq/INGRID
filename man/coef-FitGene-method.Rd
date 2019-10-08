@@ -13,4 +13,3 @@
 \description{
 SPLS coefficient estimates for genes.
 }
-
