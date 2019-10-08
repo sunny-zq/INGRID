@@ -1,15 +1,3 @@
-#' An S4 class to represent checked data.
-#'
-#' @slot inputdata input data for CheckData function
-
-setClass( Class="CheckedData",
-          representation=representation(
-            newdata = "list",
-            inputdata="list"
-          )
-)
-
-
 #' An S4 class to represent regrouped gene set.
 #'
 #' @slot gset list of regrouped gene set
