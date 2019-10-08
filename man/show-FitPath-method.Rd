@@ -13,4 +13,3 @@
 \description{
 Summary of selectPath results.
 }
-
