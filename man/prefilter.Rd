@@ -4,7 +4,7 @@
 \alias{prefilter}
 \title{prefilter function}
 \usage{
-prefilter(data, time, status, p.cut = 0.5, plist)
+prefilter(data, time, status, p.cut = 0.5, plist = plist)
 }
 \arguments{
 \item{data}{A N by P dataframe, where N is number of observations, P is number of genes}
@@ -27,3 +27,4 @@ geneRegroup.result=geneRegroup( plist=TCGA$pathList )
 prefilter.results=prefilter( data=TCGA$geneexpr, time=TCGA$t, status=TCGA$d,
                              plist=geneRegroup.result@gset )
 }
+
