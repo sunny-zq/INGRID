@@ -236,15 +236,16 @@ setMethod(
       coefs.plot<- exp(unlist(coefs))
       path.plot<-lab2
       data.plot<- as.data.frame(cbind(index.plot,coefs.plot))
-      data.plot<- data.plot[which(data.plot$coefs.plot>1),]
+      # data.plot<- data.plot[which(data.plot$coefs.plot>1),]
       ggplot(data.plot,aes(x=index.plot,xend=index.plot,y=1,yend=coefs.plot))+
         geom_segment()+coord_flip()+
-        scale_x_discrete(limits=path.plot)+
+        scale_x_discrete(limits=path.plot[data.plot$index.plot])+
         ggtitle("Hazard ratio") +
-        theme_bw()+scale_y_continuous(expand = c(0, 0),limits= c(1 , max(data.plot$coefs.plot)+0.05))+
+        theme_bw()+scale_y_continuous(expand = c(0, 0),limits= c(1 , max(data.plot$coefs.plot)+0.02))+
         theme(axis.title.x=element_blank(),
               axis.title.y=element_blank(),
               plot.title =element_text(size=15, vjust=1,hjust=0.5))+
+        theme(axis.text.y = element_text(family = 'serif', size = 11, angle = 10) )+
         theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
               panel.background = element_blank(), axis.line = element_line(colour = "black"))
 
