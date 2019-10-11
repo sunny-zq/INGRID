@@ -49,49 +49,53 @@ setMethod(
     score<-genes<-beta<-w<-list()
 
     for(j in 1:length(pathways)){
+      message( paste("Gene-level Analysis for pathway ",j,"/",length(pathways),"...") )
 
       xx<-as.matrix( data[[j]],nrow=n,ncol=dimx[j],drop=FALSE )
       kmax<-min( K, ncol(xx) )
-	  ##cross validation
+      ##cross validation
       if(par){
-	    cvs=cv_splscox(x=xx, t=t, d=d, foldid=foldid,
-	  		K=kmax, eta.vec=etas, method=method, parallel=TRUE)
-  	  }else{
-  	  cvs=cv_splscox(x=xx, t=t, d=d, foldid=foldid,
-	  		K=kmax, eta.vec=etas, method=method, parallel=FALSE)
-  	  }
-  	  ###one se criteria
-  	  if(se1==TRUE){
-  	  	k.opt[j]=cvs$opt.k[2]
-      	eta.opt[j]=cvs$opt.eta[2]
+        cvs=cv_splscox(x=xx, t=t, d=d, foldid=foldid,
+                       K=kmax, eta.vec=etas, method=method, parallel=TRUE)
+      }else{
+        cvs=cv_splscox(x=xx, t=t, d=d, foldid=foldid,
+                       K=kmax, eta.vec=etas, method=method, parallel=FALSE)
+      }
+      ###one se criteria
+      if(se1==TRUE){
+        k.opt[j]=cvs$opt.k[2]
+        eta.opt[j]=cvs$opt.eta[2]
       }
       ##if auc is used, this is the maximum auc criteria
       ##if partial likelihood is used, this is the min
       ##deviance criteria
-  	  if(se1==FALSE){
-  	  	k.opt[j]=cvs$opt.k[1]
-      	eta.opt[j]=cvs$opt.eta[1]
+      if(se1==FALSE){
+        k.opt[j]=cvs$opt.k[1]
+        eta.opt[j]=cvs$opt.eta[1]
       }
       ###model fitting
-  	  cox<-coxph(Surv(t,d)~1)
+      cox<-coxph(Surv(t,d)~1)
       devres<-residuals(cox,type="deviance")
 
       spls.mod<-spls.cox(x=xx, y=devres, K=k.opt[j],
-      		eta=eta.opt[j],kappa=0.5, select="pls2",
-      		scale.x=T, scale.y=F)
+                         eta=eta.opt[j],kappa=0.5, select="pls2",
+                         scale.x=T, scale.y=F)
 
       fit=coxph(Surv(t,d)~spls.mod$plsmod$variates$X)
-	  betahat=spls.mod$w%*%summary(fit)$coef[,1]
-	  beta[[j]]<-data.frame( colnames(xx)[spls.mod$A],
-      		betahat )
+      betahat=spls.mod$w%*%summary(fit)$coef[,1]
+      beta[[j]]<-data.frame( colnames(xx)[spls.mod$A],
+                             betahat )
       rownames(beta[[j]])<-NULL
       genes[[j]]<-beta[[j]][,1]
 
 
-    	score[[j]]<- data.frame(spls.mod$plsmod$variates$X)
-    	w[[j]]<-spls.mod$w
+      score[[j]]<- data.frame(spls.mod$plsmod$variates$X)
+      w[[j]]<-spls.mod$w
 
     }
+
+    message("Done!")
+
 
     names(genes)<-pathways
     names(beta)<-pathways

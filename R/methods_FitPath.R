@@ -153,8 +153,9 @@ setMethod(
       #       xlab="Months From Diagnosis to Death",ylab="Survival Fraction (KM)" )
       # legend("bottomleft",lty=c(1,1,1),col=c("red","black","green"),
       #        c( paste("High",">",cuts[2],"n=",tab[1]),paste("Medium", "n=",tab[2]),paste("Low","<",cuts[1], "n=",tab[3])))
-
-      predicted_data<-as.data.frame(predicted)
+      predicted_data<-predicted
+      predicted_data[[3]]<-NULL
+      predicted_data<-as.data.frame(predicted_data)
       predicted_data$status<-predicted_data$status+1
       predicted_data$riskcat <- factor(predicted_data$riskcat, levels = c("high","med","low"))
       fit<- survfit(Surv(time, status) ~ riskcat, data = predicted_data)
