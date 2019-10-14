@@ -236,11 +236,14 @@ setMethod(
       index.plot<- unlist(index)
       coefs.plot<- exp(unlist(coefs))
       path.plot<-lab2
+
+
       data.plot<- as.data.frame(cbind(index.plot,coefs.plot))
-      # data.plot<- data.plot[which(data.plot$coefs.plot>1),]
+      data.plot<- data.plot[which(data.plot$coefs.plot>1),]
+      lab3<-c("extra",rev(x@coef[rev(order(x@coef$path.beta)),][,1][1:nrow(data.plot)]))
       ggplot(data.plot,aes(x=index.plot,xend=index.plot,y=1,yend=coefs.plot))+
         geom_segment()+coord_flip()+
-        scale_x_discrete(limits=path.plot[data.plot$index.plot])+
+        scale_x_discrete(limits=lab3)+
         ggtitle("Hazard ratio") +
         theme_bw()+scale_y_continuous(expand = c(0, 0),limits= c(1 , max(data.plot$coefs.plot)+0.02))+
         theme(axis.title.x=element_blank(),

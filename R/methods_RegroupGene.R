@@ -13,7 +13,7 @@ setMethod(
     plist<-object@inputdata
     geneset.before <- names(plist)
     n.path.before <- length(geneset.before)
-    path.index <- sprintf("gene_set_%s",seq(1:n.path.before))
+    path.index <- sprintf("s%s",seq(1:n.path.before))
 
     path.before<-as.data.frame(names(object@inputdata))
     rownames(path.before)<-path.index
@@ -30,6 +30,10 @@ setMethod(
 
     colnames(table)<-path.index
     rownames(table)<-names(object@gset)[idx]
+    for(i in 1:length(idx)){
+      rownames(table)[i]<-paste0("gene_set_",nrow(path.before)+i)
+    }
+
     cat( "Summary: Gene regrouping results (class: RegroupGene)\n" )
     cat( "--------------------------------------------------\n" )
     cat( "Gene sets before the gene regrouping\n" )
@@ -38,11 +42,12 @@ setMethod(
     cat( "Gene sets after the gene regrouping\n" )
     str(object@gset)
     cat( "--------------------------------------------------\n" )
+    cat( "Compare of the gene set before and after gene regrouping\n" )
+    print(table)
     cat( "Gene set names before the gene regrouping\n" )
     print(path.before)
-    cat( "--------------------------------------------------\n" )
-    cat( "Number of genes in each of the new gene set vs. each of the original gene sets\n" )
-    print(table)
+
+
 
   }
 )

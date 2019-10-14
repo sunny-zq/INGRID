@@ -51,13 +51,13 @@ checkData <- function(data) {
     boxplot(temp, main="Original Data")
     hist(temp, main="Original Data", xlab=NA, ylab=NA)
 
-    boxplot(temp_outlier, main="Without outliers")
-    hist(temp_outlier, main="Without outliers", xlab=NA, ylab=NA)
+    boxplot(temp_outlier, main="Data after removing outliers")
+    hist(temp_outlier, main="Data after removing outliers", xlab=NA, ylab=NA)
     temp_log<-temp
     temp_log[which(temp_log<0)]<-0
 
-    boxplot(log(temp_log[which(temp_log>0)]), main="log-transformation")
-    hist(log(temp_log), main="log-transformation", xlab=NA, ylab=NA)
+    boxplot(log(temp_log[which(temp_log>0)]), main="log-transformed data")
+    hist(log(temp_log), main="log-transformed data", xlab=NA, ylab=NA)
     title("Data check", outer=TRUE)
     par(mfrow=c(1, 1))
 

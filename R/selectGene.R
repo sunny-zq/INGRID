@@ -44,7 +44,7 @@ setMethod(
     	set.seed(seed)
 		foldid = sample(rep(seq(1:fold), length=n))
 	}
-
+    set.seed(seed)
     k.opt<-eta.opt<-NULL
     score<-genes<-beta<-w<-list()
 

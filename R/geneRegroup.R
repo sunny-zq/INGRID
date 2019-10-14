@@ -53,14 +53,16 @@ geneRegroup<- function(plist=TCGA$pathList){
   }
 
   pam.fit<-pam(d, 2, diss=TRUE)
-  plot(pam.fit)
+  # plot(pam.fit)
   gset1<-gset2<-list()
   for(i in 1:length(pam.fit$medoids)){
     idx<-as.vector(pam.fit$clustering)
     gset1[[i]]<-names(pam.fit$clustering)[idx==i]
   }
   names(gset1)<-pam.fit$medoids
-
+  for(i in 1:length(gset1)){
+    names(gset1)[i]<-paste0("gene_set_",length(plist)+i)
+  }
   for(i in 1:length(names(plist))){
     idx<-as.vector(paths)
     gset2[[i]]<-names(paths)[idx==i]
